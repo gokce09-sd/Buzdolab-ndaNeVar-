@@ -3,289 +3,316 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070d24">
 <title>Dolapta Ne Var? | Mutfak Defterim</title>
 <style>
-:root{--ink:#e9edfa;--mute:#98a3c7;--moon:#f2d98d;--mint:#8fe3c8;--rose:#f5a9b8;--panel:rgba(18,30,66,.72);--edge:rgba(160,180,255,.18)}
+:root{--fs:1;--bg0:#070d24;--bg1:#16285a;--ink:#e9edfa;--mute:#98a3c7;--moon:#f2d98d;--mint:#8fe3c8;--rose:#f5a9b8;--on:#1a1d33;--panel:rgba(18,30,66,.78);--card:rgba(8,16,44,.65);--edge:rgba(160,180,255,.2)}
+[data-t=light]{--bg0:#f3f5fc;--bg1:#dce4fa;--ink:#1c2340;--mute:#55618a;--moon:#8a5a00;--mint:#0b6e52;--rose:#b02b4b;--on:#fff;--panel:rgba(255,255,255,.88);--card:#fff;--edge:rgba(40,60,130,.2)}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{min-height:100vh;color:var(--ink);font-family:'Trebuchet MS','Segoe UI',sans-serif;line-height:1.55;
-  background:radial-gradient(ellipse at 20% 0%,#16285a 0%,transparent 55%),radial-gradient(ellipse at 90% 100%,#1b1650 0%,transparent 50%),#070d24;background-attachment:fixed}
+html{font-size:calc(16px*var(--fs))}
+body{min-height:100vh;color:var(--ink);font-family:'Trebuchet MS','Segoe UI',sans-serif;line-height:1.55;background:radial-gradient(ellipse at 20% 0,var(--bg1),transparent 55%),var(--bg0);background-attachment:fixed;padding-bottom:70px}
 #sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.wrap{position:relative;z-index:1;max-width:1150px;margin:0 auto;padding:44px 18px 60px}
+[data-t=light] #sky{opacity:0}
+.wrap{position:relative;z-index:1;max-width:1150px;margin:0 auto;padding:30px 16px}
 .hand{font-family:'Segoe Print','Bradley Hand','Comic Sans MS',cursive}
-header{margin-bottom:34px;max-width:620px}
-h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(2.1rem,5vw,3.2rem);font-weight:700;line-height:1.1;letter-spacing:-.5px}
-header p{color:var(--mute);margin-top:12px;font-size:1.02rem}
-header .hand{color:var(--moon);font-size:.95rem;margin-top:10px;transform:rotate(-1deg);display:inline-block}
-.grid{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:26px;align-items:start}
-@media(max-width:860px){.grid{grid-template-columns:1fr}}
-.panel{background:var(--panel);border:1px solid var(--edge);border-radius:22px 22px 30px 22px;padding:24px;backdrop-filter:blur(8px);box-shadow:0 20px 50px -20px #000}
-.panel.pick{position:sticky;top:16px}
-@media(max-width:860px){.panel.pick{position:static}}
-h2{font-family:Georgia,serif;font-size:1.05rem;color:var(--moon);margin:16px 0 8px;font-weight:700}
+.top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:24px}
+h1{font-family:Georgia,serif;font-size:clamp(2rem,5vw,3rem);line-height:1.1}
+.top p{color:var(--mute);margin-top:8px;max-width:520px}
+.tools{display:flex;gap:6px;flex-wrap:wrap}
+button,input{font:inherit;color:inherit}
+.ib{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:7px 12px;cursor:pointer;font-size:.9rem}
+.ib:hover{border-color:var(--moon)}
+.ib b{background:var(--moon);color:var(--on);border-radius:99px;padding:0 7px;margin-left:4px;font-size:.78rem}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.find{width:100%;background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:12px 16px;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:minmax(290px,370px) 1fr;gap:22px;align-items:start}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.pick{position:static!important}}
+.panel{background:var(--panel);border:1px solid var(--edge);border-radius:22px 22px 30px 22px;padding:22px;backdrop-filter:blur(8px)}
+.pick{position:sticky;top:14px}
+h2{font-family:Georgia,serif;font-size:1.02rem;color:var(--moon);margin:14px 0 7px}
 h2:first-child{margin-top:0}
 .chips{display:flex;flex-wrap:wrap;gap:7px}
-.chip{font:inherit;font-size:.88rem;background:rgba(255,255,255,.05);color:var(--ink);border:1px solid var(--edge);padding:6px 12px;border-radius:999px;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+.chip{font-size:.88rem;background:transparent;border:1px solid var(--edge);padding:6px 12px;border-radius:99px;cursor:pointer}
 .chip:hover{border-color:var(--moon)}
-.chip[aria-pressed=true]{background:var(--moon);color:#1a1d33;border-color:var(--moon);font-weight:700;transform:scale(1.04)}
-.chip:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
-.count{color:var(--mute);font-size:.85rem;margin:14px 0 4px;min-height:1.3em}
-.actions{display:flex;gap:10px;margin-top:10px}
-.btn{font:inherit;font-weight:700;border:0;border-radius:14px;padding:12px 18px;cursor:pointer;transition:transform .12s,filter .12s}
-.btn:active{transform:translateY(1px)}
-.go{flex:1;background:linear-gradient(135deg,var(--moon),#e9b86a);color:#1a1d33;box-shadow:0 8px 24px -8px rgba(242,217,141,.55)}
-.go:hover{filter:brightness(1.07)}
-.ghost{background:transparent;color:var(--mute);border:1px solid var(--edge)}
-.ghost:hover{color:var(--ink)}
-.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.chip[aria-pressed=true]{background:var(--moon);color:var(--on);border-color:var(--moon);font-weight:700}
+.cnt{color:var(--mute);font-size:.85rem;margin:12px 0 4px;min-height:1.3em}
+.row{display:flex;gap:8px;margin-top:8px}
+.btn{border:0;border-radius:13px;padding:11px 16px;cursor:pointer;font-weight:700;background:var(--moon);color:var(--on)}
+.btn:hover{filter:brightness(1.08)}
+.btn.g{background:transparent;color:var(--mute);border:1px solid var(--edge)}
+.btn.s{padding:6px 12px;font-size:.85rem}
+.btn.m{background:var(--mint);color:var(--on)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .bar b{font-family:Georgia,serif;font-size:1.15rem}
-.empty{padding:46px 10px;text-align:center;color:var(--mute)}
-.empty .hand{font-size:1.15rem;color:var(--moon);display:block;margin-bottom:8px}
-.recipe{background:rgba(8,16,44,.65);border:1px solid var(--edge);border-radius:16px 26px 16px 22px;padding:20px 22px;margin-bottom:16px;animation:land .35s ease backwards}
+.empty{padding:40px 10px;text-align:center;color:var(--mute)}
+.empty .hand{display:block;color:var(--moon);font-size:1.1rem;margin-bottom:6px}
+.recipe{background:var(--card);border:1px solid var(--edge);border-radius:16px 26px 16px 22px;padding:18px 20px;margin-bottom:14px}
 .recipe:nth-child(even){border-radius:26px 16px 22px 16px}
-@keyframes land{from{opacity:0;transform:translateY(8px)}}
-.rt{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
-.rt h3{font-family:Georgia,serif;font-size:1.25rem}
-.tag{font-size:.78rem;padding:3px 10px;border-radius:999px;border:1px solid}
-.tag.t1{color:var(--mint);border-color:rgba(143,227,200,.45)}
-.tag.t2{color:var(--rose);border-color:rgba(245,169,184,.45)}
-.tag.t3{color:var(--moon);border-color:rgba(242,217,141,.45)}
-.tags{display:flex;gap:6px}
-.miss{font-size:.88rem;margin:8px 0 2px;color:var(--rose)}
-.ok{font-size:.88rem;margin:8px 0 2px;color:var(--mint)}
-.recipe h4{font-size:.92rem;color:var(--moon);margin:12px 0 5px}
+.rt{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.rt h3{font-family:Georgia,serif;font-size:1.22rem}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.76rem;padding:2px 10px;border-radius:99px;border:1px solid var(--edge);color:var(--mute)}
+.tag.ok{color:var(--mint);border-color:var(--mint)}.tag.no{color:var(--rose);border-color:var(--rose)}.tag.ai{color:var(--moon);border-color:var(--moon)}
+.meta{font-size:.88rem;color:var(--mute);margin-top:4px}
+.miss{font-size:.88rem;color:var(--rose);margin-top:6px}
+h4{font-size:.9rem;color:var(--moon);margin:12px 0 5px}
 .ings{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
-.ings li{font-size:.85rem;background:rgba(255,255,255,.06);border-radius:8px;padding:4px 10px}
-.ings li.no{opacity:.55;text-decoration:line-through}
-ol{padding-left:20px;font-size:.94rem;max-width:68ch}
-ol li{margin-bottom:6px}
-.note{margin-top:12px;color:var(--moon);font-size:.9rem;transform:rotate(-.6deg);max-width:60ch}
-/* şef sohbeti */
-.chef{margin-top:28px}
-.log{height:190px;overflow-y:auto;background:rgba(4,9,30,.55);border:1px solid var(--edge);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;margin:10px 0 12px}
-.m{padding:8px 13px;border-radius:14px;max-width:84%;font-size:.92rem}
-.m.me{align-self:flex-end;background:var(--moon);color:#1a1d33;border-bottom-right-radius:4px}
-.m.bot{align-self:flex-start;background:rgba(255,255,255,.08);border-bottom-left-radius:4px}
-.sug{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.sug button{font:inherit;font-size:.8rem;background:none;color:var(--mute);border:1px dashed var(--edge);border-radius:999px;padding:3px 10px;cursor:pointer}
-.sug button:hover{color:var(--moon);border-color:var(--moon)}
-.send{display:flex;gap:8px}
-.send input{flex:1;font:inherit;background:rgba(4,9,30,.55);color:var(--ink);border:1px solid var(--edge);border-radius:12px;padding:10px 14px}
-.send .btn{background:var(--mint);color:#0a2a22}
-footer{margin-top:30px;color:var(--mute);font-size:.82rem;text-align:center}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.ings li{font-size:.85rem;background:rgba(128,140,200,.14);border-radius:8px;padding:3px 10px}
+.ings li.x{text-decoration:line-through;opacity:.6}
+ol{padding-left:20px;max-width:68ch;font-size:.95rem}
+ol li{margin-bottom:7px}
+.tm{font-size:.76rem;margin-left:6px;border:1px solid var(--mint);color:var(--mint);background:none;border-radius:99px;padding:0 9px;cursor:pointer}
+.tm:hover{background:var(--mint);color:var(--on)}
+.note{margin-top:10px;color:var(--moon);font-size:.9rem;transform:rotate(-.5deg);max-width:60ch}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+/* sohbet */
+.chef{margin-top:24px}
+.log{height:170px;overflow-y:auto;background:rgba(128,140,200,.1);border:1px solid var(--edge);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:7px;margin:10px 0}
+.m{white-space:pre-line;padding:7px 12px;border-radius:14px;max-width:84%;font-size:.92rem}
+.m.me{align-self:flex-end;background:var(--moon);color:var(--on)}.m.bot{align-self:flex-start;background:rgba(128,140,200,.2)}
+.sug{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.sug button{font-size:.8rem;background:none;color:var(--mute);border:1px dashed var(--edge);border-radius:99px;padding:2px 10px;cursor:pointer}
+.send{display:flex;gap:8px}.send input{flex:1;background:var(--card);border:1px solid var(--edge);border-radius:12px;padding:9px 14px}
+/* diyaloglar */
+dialog{border:1px solid var(--edge);border-radius:22px;background:var(--bg0);color:var(--ink);padding:22px;width:min(560px,94vw);max-height:90vh;overflow:auto;margin:auto}
+dialog::backdrop{background:rgba(2,5,18,.7)}
+dialog.cook{width:min(760px,100vw);height:100vh;max-height:100vh;border-radius:0;display:none;flex-direction:column}
+dialog.cook[open]{display:flex}
+@media(min-width:800px){dialog.cook{height:min(640px,92vh);border-radius:26px}}
+.dh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.dh h3{font-family:Georgia,serif;font-size:1.25rem}
+.li{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--edge)}
+.li input[type=checkbox]{width:20px;height:20px;accent-color:var(--mint)}
+.li span{flex:1}.li.d span{text-decoration:line-through;opacity:.5}
+.li button{background:none;border:0;color:var(--mute);cursor:pointer;font-size:1.1rem}
+.prog{height:6px;border-radius:9px;background:var(--edge);overflow:hidden;margin-bottom:14px}
+.prog i{display:block;height:100%;background:var(--moon);transition:width .25s}
+.big{flex:1;display:flex;flex-direction:column;justify-content:center;font-size:1.55rem;line-height:1.45;font-family:Georgia,serif;padding:10px 4px}
+.big small{font-family:'Trebuchet MS',sans-serif;font-size:.85rem;color:var(--mute);margin-bottom:8px}
+.nav{display:flex;gap:10px;margin-top:12px}.nav .btn{flex:1;padding:15px}
+details{margin-top:10px;color:var(--mute);font-size:.9rem}
+#tb,#tb2{display:flex;gap:8px;flex-wrap:wrap}
+#tb{position:fixed;left:12px;right:12px;bottom:12px;z-index:5;justify-content:center;pointer-events:none}
+.tt{pointer-events:auto;background:var(--panel);border:1px solid var(--mint);border-radius:99px;padding:5px 8px 5px 14px;display:flex;gap:8px;align-items:center;font-variant-numeric:tabular-nums;backdrop-filter:blur(8px)}
+.tt.done{border-color:var(--rose);color:var(--rose);font-weight:700}
+.tt button{background:none;border:0;cursor:pointer;color:var(--mute)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{#sky,.pick,.tools,.find,.chef,.acts,#tb{display:none!important}body{background:#fff;color:#000}}
 </style>
 </head>
 <body>
 <canvas id="sky" aria-hidden="true"></canvas>
 <div class="wrap">
-  <header>
-    <h1>Dolapta ne var?</h1>
-    <p>Elindeki malzemeleri işaretle. Hazır tarifleri, bir malzemesi eksik olanları ve o malzemelerle uydurabileceğin doğaçlama yemekleri birlikte göstereyim.</p>
-    <span class="hand">tuz, karabiber ve su zaten evde vardır diye düşünüyorum</span>
-  </header>
-
-  <div class="grid">
-    <section class="panel pick" aria-label="Malzemeler">
-      <div id="cats"></div>
-      <div class="count" id="count" aria-live="polite"></div>
-      <div class="actions">
-        <button class="btn go" onclick="show()">Tarif bul</button>
-        <button class="btn ghost" onclick="clearAll()">Temizle</button>
-      </div>
-    </section>
-    <section class="panel" id="out" aria-live="polite">
-      <div class="empty"><span class="hand">önce birkaç malzeme seç</span>Üç dört malzeme genelde yeter. Yumurta, domates ve biber gibi.</div>
-    </section>
+<div class="top">
+  <div><h1>Dolapta ne var?</h1><p>Elindeki malzemeleri işaretle. Hazır tarifleri, bir malzemesi eksik olanları ve doğaçlama fikirleri göstereyim. Tuz, karabiber ve su evde var sayılıyor.</p></div>
+  <div class="tools">
+    <button class="ib" id="bl" aria-label="Alışveriş listesi">Liste <b id="lc">0</b></button>
+    <button class="ib" id="bt" aria-label="Açık veya koyu tema">Tema</button>
+    <button class="ib" id="fm" aria-label="Yazıyı küçült">A−</button>
+    <button class="ib" id="fp" aria-label="Yazıyı büyüt">A+</button>
   </div>
-
-  <section class="panel chef" aria-label="Mutfak asistanı">
-    <h2>Mutfakta takıldın mı?</h2>
-    <p style="color:var(--mute);font-size:.9rem">Malzeme yerine ne konur, ne kadar pişer, nasıl saklanır gibi sorulara cevap veririm. Anahtar kelimelere bakarak çalışan basit bir asistanım, her şeyi bilmem.</p>
-    <div class="log" id="log"><div class="m bot">Merhaba. Mesela "yumurta yerine ne koyabilirim" diye sorabilirsin.</div></div>
-    <div class="sug" id="sug"></div>
-    <div class="send">
-      <input id="q" placeholder="Sorunu yaz…" aria-label="Sorun" autocomplete="off">
-      <button class="btn" onclick="ask()">Sor</button>
-    </div>
-  </section>
-  <footer>Ölçüler yaklaşık 2 kişilik. Tadına bakarak ayarla.</footer>
 </div>
+<input class="find" id="sr" type="search" placeholder="Tarif ara: mücver, tavuk, çikolata…" aria-label="Tarif ara">
+<div class="grid">
+  <section class="panel pick" aria-label="Malzemeler">
+    <div id="cats"></div><div class="cnt" id="cnt" aria-live="polite"></div>
+    <div class="row"><button class="btn" style="flex:1" id="go">Tarif bul</button><button class="btn g" id="clr">Temizle</button></div>
+  </section>
+  <section class="panel" id="out" aria-live="polite"></section>
+</div>
+<section class="panel chef" aria-label="Mutfak asistanı">
+  <h2>Mutfakta takıldın mı?</h2>
+  <p style="color:var(--mute);font-size:.9rem">Seçtiğin malzemelere ve önceki sorularına bakarak cevap verir: tarif önerir, eksikleri listeye ekler, ölçü çevirir, malzeme yerine ne konacağını söyler. Gerçek bir yapay zeka değil, kendi bilgi tablosuyla çalışan bir asistan.</p>
+  <div class="log" id="log"><div class="m bot">Merhaba! Soldan malzemelerini seç, sonra "ne yapabilirim" diye sor. Ya da aşağıdaki örneklere dokun.</div></div>
+  <div class="sug" id="sug"></div>
+  <div class="send"><input id="q" placeholder="Sorunu yaz…" aria-label="Sorun" autocomplete="off"><button class="btn m" id="ask">Sor</button></div>
+</section>
+</div>
+<div id="tb" aria-label="Zamanlayıcılar"></div>
+
+<dialog id="dl"><div class="dh"><h3>Alışveriş listesi</h3><button class="btn g s" data-close>Kapat</button></div>
+  <div class="send" style="margin-bottom:8px"><input id="li" placeholder="Malzeme ekle…" aria-label="Listeye malzeme ekle"><button class="btn s" id="la">Ekle</button></div>
+  <div id="ll"></div>
+  <div class="row"><button class="btn s m" id="lcpy">Kopyala</button><button class="btn s g" id="ldn">Alınanları sil</button></div>
+  <p style="color:var(--mute);font-size:.8rem;margin-top:10px">Liste sadece bu cihazda saklanır.</p></dialog>
+
+<dialog id="dk" class="cook"><div class="dh"><h3 id="ck-t"></h3><button class="btn g s" data-close>Çık</button></div>
+  <div class="prog"><i id="ck-p"></i></div><div class="big" id="ck-b"></div>
+  <div id="tb2"></div><details id="ck-i"></details>
+  <div class="nav"><button class="btn g" id="ck-b1">Geri</button><button class="btn" id="ck-n">İleri</button></div></dialog>
 
 <script>
-/* ---------- yıldızlı gökyüzü ---------- */
-(function(){
-  const c=document.getElementById('sky'),x=c.getContext('2d');let W,H,S=[],shoot=null;
-  const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function size(){W=c.width=innerWidth;H=c.height=innerHeight;S=Array.from({length:Math.min(170,W*H/9000|0)},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+.2,p:Math.random()*6.3,s:Math.random()*.02+.005}))}
-  function draw(){
-    x.clearRect(0,0,W,H);
-    for(const s of S){s.p+=s.s;x.globalAlpha=.35+.6*Math.abs(Math.sin(s.p));x.fillStyle='#dfe7ff';x.beginPath();x.arc(s.x,s.y,s.r,0,6.3);x.fill()}
-    if(!shoot&&!calm&&Math.random()<.003)shoot={x:Math.random()*W*.8,y:Math.random()*H*.35,l:0};
-    if(shoot){const t=shoot;t.l+=1;const a=x.createLinearGradient(t.x,t.y,t.x-70,t.y-30);x.globalAlpha=1-t.l/45;x.strokeStyle='#f2d98d';x.lineWidth=1.6;x.beginPath();x.moveTo(t.x+t.l*9,t.y+t.l*4);x.lineTo(t.x+t.l*9-60,t.y+t.l*4-26);x.stroke();if(t.l>45)shoot=null}
-    x.globalAlpha=1;if(!calm)requestAnimationFrame(draw)
-  }
-  addEventListener('resize',()=>{size();if(calm)draw()});size();draw();
-})();
+const $=s=>document.querySelector(s);
+const st={g(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch{return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const fold=s=>s.toLocaleLowerCase('tr').replace(/ı/g,'i').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 
-/* ---------- veriler ---------- */
-const CATS={
- "Sebzeler":["Domates","Biber","Patates","Soğan","Sarımsak","Kabak","Havuç","Mantar"],
- "Meyveler":["Muz","Elma","Çilek","Limon"],
- "Süt ve yumurta":["Yumurta","Süt","Yoğurt","Kaşar Peyniri","Beyaz Peynir","Tereyağı"],
- "Kiler":["Makarna","Pirinç","Un","Salça","Sıvı Yağ","Tavuk Göğsü"],
- "Tatlı malzemeleri":["Toz Şeker","Kakao","Bitter Çikolata","Kabartma Tozu","Vanilya","Yulaf","Petibör Bisküvi"]
-};
+/* gökyüzü */
+(function(){const c=$('#sky'),x=c.getContext('2d'),calm=matchMedia('(prefers-reduced-motion:reduce)').matches;let W,H,S=[];
+function sz(){W=c.width=innerWidth;H=c.height=innerHeight;S=Array.from({length:Math.min(150,W*H/9500|0)},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.2+.2,p:Math.random()*6.3,s:Math.random()*.02+.005}))}
+function d(){x.clearRect(0,0,W,H);for(const s of S){s.p+=s.s;x.globalAlpha=.3+.6*Math.abs(Math.sin(s.p));x.fillStyle='#dfe7ff';x.beginPath();x.arc(s.x,s.y,s.r,0,6.3);x.fill()}if(!calm)requestAnimationFrame(d)}
+addEventListener('resize',()=>{sz();calm&&d()});sz();d()})();
+
+/* veri */
+const CATS={"Sebzeler":["Domates","Biber","Patates","Soğan","Sarımsak","Kabak","Havuç","Mantar"],"Meyveler":["Muz","Elma","Çilek","Limon"],"Süt ve yumurta":["Yumurta","Süt","Yoğurt","Kaşar Peyniri","Beyaz Peynir","Tereyağı"],"Kiler":["Makarna","Pirinç","Un","Salça","Sıvı Yağ","Tavuk Göğsü"],"Tatlı malzemeleri":["Toz Şeker","Kakao","Bitter Çikolata","Kabartma Tozu","Vanilya","Yulaf","Petibör Bisküvi"]};
 const M={Domates:"2 orta domates",Biber:"2 biber",Patates:"2-3 patates",Soğan:"1 soğan",Sarımsak:"2 diş sarımsak",Kabak:"1-2 kabak",Havuç:"1-2 havuç",Mantar:"200 g mantar",Muz:"1 olgun muz",Elma:"1 elma",Çilek:"1 kase çilek",Limon:"1/2 limon",Yumurta:"2 yumurta",Süt:"1 su bardağı süt",Yoğurt:"1 kase yoğurt","Kaşar Peyniri":"1/2 su bardağı kaşar","Beyaz Peynir":"1/2 su bardağı beyaz peynir",Tereyağı:"1 yemek kaşığı tereyağı",Makarna:"200 g makarna",Pirinç:"1 su bardağı pirinç",Un:"1 su bardağı un",Salça:"1 yemek kaşığı salça","Sıvı Yağ":"2 yemek kaşığı sıvı yağ","Tavuk Göğsü":"250 g tavuk göğsü","Toz Şeker":"3-4 yemek kaşığı şeker",Kakao:"2 yemek kaşığı kakao","Bitter Çikolata":"40 g bitter çikolata","Kabartma Tozu":"1 çay kaşığı kabartma tozu",Vanilya:"1 paket vanilya",Yulaf:"1 su bardağı yulaf","Petibör Bisküvi":"10-12 petibör bisküvi"};
-const m=i=>M[i]||i;
-const ALL=Object.values(CATS).flat();
-const sel=new Set();
-
-
+const m=i=>M[i]||i, nice=r=>r.replace("|"," ya da "), DZ=["Kolay","Orta","Zor"];
+/* req'te "A|B": ikisinden biri yeter */
 const R=[
- {n:"Menemen",t:"Yemek",req:["Domates","Biber","Yumurta"],opt:["Soğan"],s:["Biberleri yağda 2-3 dakika çevir, soğan varsa önce onu pembeleştir.","Küp doğradığın domatesleri ekle, suyunu çekene kadar pişir.","Yumurtaları kır, çok karıştırmadan ocaktan al. Kendi sıcağıyla pişmeye devam eder."],note:"Yumurtayı ocaktan erken almak her şeyi belirliyor."},
- {n:"Muzlu yulaflı pankek",t:"Tatlı",req:["Muz","Yumurta","Yulaf"],opt:["Süt","Kabartma Tozu"],s:["Muzu çatalla ez, yumurtayı ekleyip çırp.","Yulafı katıp 5 dakika bekle, yulaf suyu çeker ve kıvam oturur.","Az yağlı tavada küçük küçük dök, kabarcıklar çıkınca çevir."],note:"Muz ne kadar olgunsa o kadar tatlı olur, şeker gerekmez."},
- {n:"Fırında baharatlı patates",t:"Yemek",req:["Patates","Sıvı Yağ"],opt:["Sarımsak"],s:["Patatesleri kabuğuyla dilimleyip yağ, tuz ve kekik ya da pul biberle karıştır.","Yağlı kâğıt serili tepside 200 derecede 25-30 dakika pişir, yarıda bir çevir."],note:"Tepsiye tek kat dizmezsen çıtır değil yumuşak olur."},
- {n:"Fincan keki",t:"Tatlı",req:["Yumurta","Süt","Toz Şeker","Un","Kakao"],opt:["Kabartma Tozu","Vanilya"],s:["Yumurta ile şekeri çırp, süt ve 2 kaşık yağı ekle.","Un ve kakaoyu (varsa kabartma tozunu) karıştırıp geniş bir fincana boşalt.","Mikrodalgada 1,5-2 dakika pişir. Ortası hâlâ yumuşaksa 15 saniye daha ver."],note:"Fincanı yarısına kadar doldur, yoksa taşar."},
- {n:"Kabak mücveri",t:"Yemek",req:["Kabak","Yumurta","Un"],opt:["Yoğurt","Sarımsak","Beyaz Peynir"],s:["Kabağı rendele, tuzla, 5 dakika sonra suyunu iyice sık.","Yumurta, un ve peynir varsa ufalayıp karıştır.","Kızgın yağda kaşıkla dök, iki yüzü kızarınca kâğıt havluya al."],note:"Suyunu sıkmazsan mücver dağılır. Bunu bir kere öğrendim."},
- {n:"Domates soslu makarna",t:"Yemek",req:["Makarna","Domates"],opt:["Kaşar Peyniri","Sarımsak","Salça"],s:["Makarnayı haşla, bir kepçe suyunu ayır.","Rendelenmiş domatesi (ya da salçayı) yağda 5-6 dakika pişir, sarımsak varsa başta at.","Makarnayı ve ayırdığın suyu ekle, kaşarı en son erit."],note:"Makarna suyu sosu birbirine bağlar, dökmeden ayır."},
- {n:"Çilekli bisküvili parfe",t:"Tatlı",req:["Çilek","Petibör Bisküvi","Yoğurt"],opt:["Toz Şeker"],s:["Yoğurdu şekerle (ya da baldan yanaysan onunla) çırp.","Bisküvileri kır, çilekleri doğra, bardağa kat kat diz.","Buzdolabında en az 1 saat dinlendir."],note:"Bisküviler yoğurttan nem çeker, bu yüzden bekletince yumuşar ve güzelleşir."},
- {n:"Mantarlı tavuk sote",t:"Yemek",req:["Tavuk Göğsü","Mantar"],opt:["Soğan","Sarımsak","Süt"],s:["Tavuğu küçük doğrayıp yüksek ateşte suyunu salıp çekene kadar mühürle.","Mantarı, varsa soğanı ve sarımsağı ekleyip 8 dakika pişir.","Bir kaşık süt ya da yoğurtla sosunu yumuşat."],note:"Mantarı tuzu en sona bırak, yoksa suyunu erken salar."},
- {n:"Sütlaç",t:"Tatlı",req:["Süt","Pirinç","Toz Şeker"],opt:["Vanilya"],s:["Pirinci 1 bardak suda yumuşayana kadar haşla.","Sütü ekle, kısık ateşte karıştırarak 20 dakika pişir.","Şekeri ve vanilyayı en sona kat, kaselere paylaştır."],note:"Dibi tutmasın diye hiç yanından ayrılma."},
- {n:"Tereyağlı pilav",t:"Yemek",req:["Pirinç","Tereyağı"],opt:["Havuç"],s:["Pirinci ılık tuzlu suda 15 dakika beklet, süz.","Tereyağında 2 dakika kavur.","1,5 kat sıcak su ekle, kısık ateşte kapağı kapalı çekene kadar pişir, 10 dakika demlendir."],note:"Demlenirken kapağı açma."},
- {n:"Havuçlu kek",t:"Tatlı",req:["Havuç","Un","Yumurta","Toz Şeker","Sıvı Yağ","Kabartma Tozu"],opt:[],s:["Yumurta ve şekeri çırp, yağı ekle.","Rendelenmiş havucu ve un ile kabartma tozunu karıştır.","Yağlanmış kalıpta 175 derecede 35-40 dakika pişir."],note:"Kürdan temiz çıkana kadar fırından alma."},
- {n:"Elmalı yulaf fırın",t:"Tatlı",req:["Elma","Yulaf"],opt:["Yumurta","Süt","Toz Şeker"],s:["Elmayı küp doğra, yulafla karıştır.","Varsa yumurta ve sütü ekle, tatlandırmak istersen biraz şeker kat.","180 derecede 20-25 dakika, üstü kızarana kadar pişir."],note:"Tarçın varsa sakın atlama."},
- {n:"Peynirli omlet",t:"Yemek",req:["Yumurta","Kaşar Peyniri|Beyaz Peynir"],opt:["Domates","Biber","Mantar"],s:["Eklemek istediğin sebzeyi tavada kısaca çevir.","Çırpılmış yumurtayı ekle, kısık ateşte altı tutunca peyniri serp.","İkiye katla, 1 dakika daha beklet."],note:"Kısık ateş. Acele edersen lastik gibi olur."},
- {n:"Çikolatalı muz",t:"Tatlı",req:["Muz","Bitter Çikolata"],opt:["Yulaf"],s:["Çikolatayı benmaride ya da mikrodalgada 20'şer saniye aralıkla erit.","Muzu halka doğra, çikolatanın üzerine dök, istersen yulaf serp."],note:"Dondurucuda 20 dakika bekletirsen çikolata sertleşir."},
- {n:"Limonlu tavuk",t:"Yemek",req:["Tavuk Göğsü","Limon"],opt:["Sarımsak","Tereyağı"],s:["Tavuğu limon suyu, sarımsak ve tuzla 15 dakika beklet.","Tereyağı ya da yağda iki tarafı da altın rengi olana kadar pişir.","Limon kabuğu rendesini en sonda serp."],note:"Kabuk rendesini pişirmezsen aroması daha taze kalır."},
- {n:"Kakaolu yulaf kasesi",t:"Tatlı",req:["Yulaf","Süt","Kakao"],opt:["Muz","Toz Şeker"],s:["Yulaf, süt ve kakaoyu küçük bir tencerede 5 dakika karıştırarak pişir.","Üzerine muz dilimleri koy."],note:"Sabahları en kolay şey bu."},
- {n:"Patates püresi",t:"Yemek",req:["Patates","Süt","Tereyağı"],opt:["Sarımsak"],s:["Patatesleri soyup haşla, süzüp ezerken sıcak olsunlar.","Isıttığın sütü ve tereyağını azar azar ekle."],note:"Soğuk süt eklersen püre topaklaşır."},
- {n:"Yoğurtlu patates salatası",t:"Yemek",req:["Patates","Yoğurt","Sarımsak"],opt:["Limon"],s:["Patatesleri haşla, ılınınca küp doğra.","Yoğurt ve ezilmiş sarımsakla karıştır, tuzunu ayarla."],note:"Soğuğu daha güzel, bir saat dolapta tut."}
+{n:"Menemen",t:"Yemek",m:15,d:1,req:["Domates","Biber","Yumurta"],opt:["Soğan"],s:["Biberleri yağda 3 dakika çevir, soğan varsa önce onu pembeleştir.","Küp doğradığın domatesleri ekle, suyunu çekene kadar 8 dakika pişir.","Yumurtaları kır, çok karıştırmadan ocaktan al. Kendi sıcağıyla pişer."],note:"Yumurtayı ocaktan erken almak her şeyi belirliyor."},
+{n:"Muzlu yulaflı pankek",t:"Tatlı",m:20,d:1,req:["Muz","Yumurta","Yulaf"],opt:["Süt","Kabartma Tozu"],s:["Muzu çatalla ez, yumurtayı ekleyip çırp.","Yulafı katıp 5 dakika bekle, yulaf suyu çeker.","Az yağlı tavada küçük küçük dök, her yüzü 2 dakika pişir."],note:"Muz ne kadar olgunsa o kadar tatlı olur, şeker gerekmez."},
+{n:"Fırında baharatlı patates",t:"Yemek",m:40,d:1,req:["Patates","Sıvı Yağ"],opt:["Sarımsak"],s:["Patatesleri kabuğuyla dilimleyip yağ, tuz ve kekikle karıştır.","Yağlı kâğıt serili tepside 200 derecede 30 dakika pişir, yarıda çevir."],note:"Tepsiye tek kat dizmezsen çıtır değil yumuşak olur."},
+{n:"Fincan keki",t:"Tatlı",m:8,d:1,req:["Yumurta","Süt","Toz Şeker","Un","Kakao"],opt:["Kabartma Tozu","Vanilya"],s:["Yumurta ile şekeri çırp, süt ve 2 kaşık yağı ekle.","Un ve kakaoyu (varsa kabartma tozunu) karıştırıp geniş fincana boşalt.","Mikrodalgada 2 dakika pişir. Ortası yumuşaksa 15 saniye daha ver."],note:"Fincanı yarısına kadar doldur, yoksa taşar."},
+{n:"Kabak mücveri",t:"Yemek",m:30,d:2,req:["Kabak","Yumurta","Un"],opt:["Yoğurt","Sarımsak","Beyaz Peynir"],s:["Kabağı rendele, tuzla, 5 dakika sonra suyunu iyice sık.","Yumurta, un ve varsa ufaladığın peyniri karıştır.","Kızgın yağda kaşıkla dök, her yüzünü 3 dakika kızart."],note:"Suyunu sıkmazsan mücver dağılır."},
+{n:"Domates soslu makarna",t:"Yemek",m:25,d:1,req:["Makarna","Domates"],opt:["Kaşar Peyniri","Sarımsak","Salça"],s:["Makarnayı 9 dakika haşla, bir kepçe suyunu ayır.","Rendelenmiş domatesi (ya da salçayı) yağda 6 dakika pişir, sarımsak varsa başta at.","Makarnayı ve ayırdığın suyu ekle, kaşarı en son erit."],note:"Makarna suyu sosu birbirine bağlar, dökmeden ayır."},
+{n:"Çilekli bisküvili parfe",t:"Tatlı",m:70,d:1,req:["Çilek","Petibör Bisküvi","Yoğurt"],opt:["Toz Şeker"],s:["Yoğurdu şekerle çırp.","Bisküvileri kır, çilekleri doğra, bardağa kat kat diz.","Buzdolabında 60 dakika dinlendir."],note:"Bisküviler yoğurttan nem çeker, bekleyince güzelleşir."},
+{n:"Mantarlı tavuk sote",t:"Yemek",m:25,d:2,req:["Tavuk Göğsü","Mantar"],opt:["Soğan","Sarımsak","Süt"],s:["Tavuğu küçük doğrayıp yüksek ateşte 7 dakika mühürle.","Mantarı, varsa soğanı ve sarımsağı ekleyip 8 dakika pişir.","Bir kaşık süt ya da yoğurtla sosunu yumuşat."],note:"Mantarın tuzunu en sona bırak, yoksa suyunu erken salar."},
+{n:"Sütlaç",t:"Tatlı",m:45,d:2,req:["Süt","Pirinç","Toz Şeker"],opt:["Vanilya"],s:["Pirinci 1 bardak suda 12 dakika haşla.","Sütü ekle, kısık ateşte karıştırarak 20 dakika pişir.","Şekeri ve vanilyayı en sona kat, kaselere paylaştır."],note:"Dibi tutmasın diye yanından ayrılma."},
+{n:"Tereyağlı pilav",t:"Yemek",m:35,d:2,req:["Pirinç","Tereyağı"],opt:["Havuç"],s:["Pirinci ılık tuzlu suda 15 dakika beklet, süz.","Tereyağında 2 dakika kavur.","1,5 kat sıcak su ekle, kısık ateşte kapağı kapalı 12 dakika pişir, 10 dakika demlendir."],note:"Demlenirken kapağı açma."},
+{n:"Havuçlu kek",t:"Tatlı",m:55,d:2,req:["Havuç","Un","Yumurta","Toz Şeker","Sıvı Yağ","Kabartma Tozu"],opt:[],s:["Yumurta ve şekeri çırp, yağı ekle.","Rendelenmiş havucu, un ve kabartma tozunu karıştır.","Yağlanmış kalıpta 175 derecede 40 dakika pişir."],note:"Kürdan temiz çıkana kadar fırından alma."},
+{n:"Elmalı yulaf fırın",t:"Tatlı",m:35,d:1,req:["Elma","Yulaf"],opt:["Yumurta","Süt","Toz Şeker"],s:["Elmayı küp doğra, yulafla karıştır.","Varsa yumurta ve sütü ekle, istersen biraz şeker kat.","180 derecede 25 dakika, üstü kızarana kadar pişir."],note:"Tarçın varsa sakın atlama."},
+{n:"Peynirli omlet",t:"Yemek",m:10,d:1,req:["Yumurta","Kaşar Peyniri|Beyaz Peynir"],opt:["Domates","Biber","Mantar"],s:["Eklemek istediğin sebzeyi tavada 3 dakika çevir.","Çırpılmış yumurtayı ekle, kısık ateşte altı tutunca peyniri serp.","İkiye katla, 1 dakika daha beklet."],note:"Kısık ateş. Acele edersen lastik gibi olur."},
+{n:"Çikolatalı muz",t:"Tatlı",m:5,d:1,req:["Muz","Bitter Çikolata"],opt:["Yulaf"],s:["Çikolatayı mikrodalgada 20 saniye aralıklarla erit.","Muzu halka doğra, çikolatanın üzerine dök, istersen yulaf serp.","Dondurucuda 20 dakika bekletirsen çikolata sertleşir."],note:"Hemen yersen sıcak, bekletirsen çıtır olur."},
+{n:"Limonlu tavuk",t:"Yemek",m:30,d:1,req:["Tavuk Göğsü","Limon"],opt:["Sarımsak","Tereyağı"],s:["Tavuğu limon suyu, sarımsak ve tuzla 15 dakika beklet.","Tereyağı ya da yağda iki tarafı da 5 dakika altın rengi olana kadar pişir.","Limon kabuğu rendesini en sonda serp."],note:"Kabuk rendesini pişirmezsen aroması taze kalır."},
+{n:"Patates püresi",t:"Yemek",m:30,d:1,req:["Patates","Süt","Tereyağı"],opt:["Sarımsak"],s:["Patatesleri soyup 20 dakika haşla, süzüp sıcakken ez.","Isıttığın sütü ve tereyağını azar azar ekle."],note:"Soğuk süt eklersen püre topaklanır."},
+{n:"Yoğurtlu patates salatası",t:"Yemek",m:30,d:1,req:["Patates","Yoğurt","Sarımsak"],opt:["Limon"],s:["Patatesleri 20 dakika haşla, ılınınca küp doğra.","Yoğurt ve ezilmiş sarımsakla karıştır, tuzunu ayarla."],note:"Soğuğu daha güzel, bir saat dolapta tut."}
 ];
 
-/* ---------- eşleştirme ---------- */
-const has=r=>r.split("|").some(x=>sel.has(x));
-const pick=a=>a[Math.floor(Math.random()*a.length)];
-const nice=r=>r.replace("|"," ya da ");
+/* durum */
+const sel=new Set(st.g('sel',[]).filter(x=>Object.values(CATS).flat().includes(x)));
+let list=st.g('list',[]),cur=[],ck=null,timers=[],actx=null;
+const has=r=>r.split("|").some(x=>sel.has(x)),pick=a=>a[Math.floor(Math.random()*a.length)],shuf=a=>[...a].sort(()=>Math.random()-.5);
 
-function matches(){
-  const out=[];
-  for(const r of R){
-    const miss=r.req.filter(x=>!has(x));
-    if(miss.length<=1&&r.req.length-miss.length>=2||miss.length===0&&r.req.length>=1)
-      out.push({...r,miss,kind:miss.length?2:1});
-  }
-  return out.sort((a,b)=>a.kind-b.kind||Math.random()-.5);
-}
+/* tema ve yazı boyutu */
+let theme=st.g('theme',matchMedia('(prefers-color-scheme:light)').matches?'light':'dark'),fs=st.g('fs',1);
+function applyLook(){document.documentElement.dataset.t=theme;document.documentElement.style.setProperty('--fs',fs);$('meta[name=theme-color]').content=theme==='light'?'#f3f5fc':'#070d24';st.s('theme',theme);st.s('fs',fs)}
+$('#bt').onclick=()=>{theme=theme==='dark'?'light':'dark';applyLook()};
+$('#fm').onclick=()=>{fs=Math.max(.85,+(fs-.1).toFixed(2));applyLook()};
+$('#fp').onclick=()=>{fs=Math.min(1.5,+(fs+.1).toFixed(2));applyLook()};
 
-/* ---------- doğaçlama ---------- */
-function improvise(){
-  const it=[...sel],g=k=>it.filter(i=>CATS[k].includes(i));
-  const veg=g("Sebzeler"),fr=g("Meyveler"),h=i=>sel.has(i);
-  const cheese=h("Kaşar Peyniri")?"Kaşar Peyniri":h("Beyaz Peynir")?"Beyaz Peynir":null;
-  const spice=pick(["kekik","pul biber","kimyon","karabiber","toz kırmızı biber"]);
-  const out=[],add=(n,t,used,s,note)=>out.push({n,t,kind:3,miss:[],req:used,opt:[],s,note});
-  const sh=a=>[...a].sort(()=>Math.random()-.5);
-  const v=sh(veg).slice(0,3);
-
-  if(v.length>=2||(h("Tavuk Göğsü")&&v.length)){
-    const base=h("Tavuk Göğsü")?["Tavuk Göğsü",...v]:v;
-    const used=[...base,...(h("Salça")?["Salça"]:[]),...(cheese?[cheese]:[])];
-    add(`${base.slice(0,2).join(" ve ")} ${pick(["kavurması","sotesi","tava yemeği"])}`,"Yemek",used,[
-      `Yağı kızdır, ${h("Tavuk Göğsü")?"tavukları suyunu çekene kadar mühürle":"sert olan sebzeden başlayarak tavaya al"}.`,
-      `Kalan malzemeleri ekleyip 7-8 dakika, ${spice} ile çevir.`,
-      h("Salça")?"Salçayı yarım çay bardağı sıcak suyla açıp ekle, sosu çeksin.":"Tuzunu ayarla.",
-      cheese?"Peyniri en son üzerine ver, kapağı kapat, erisin.":"Sıcak servis et."
-    ],"Doğaçlama: sebzelerin sırası önemli, sert olanı erken at.");
-  }
-  if(h("Yumurta")&&(v.length||cheese||h("Un"))){
-    const used=["Yumurta",...v.slice(0,2),...(cheese?[cheese]:[]),...(h("Un")?["Un"]:[])];
-    const krep=h("Un")&&(h("Süt")||h("Yoğurt"));
-    add(krep?`${v[0]||"Peynirli"} tava böreği`:`${v.slice(0,2).join(" ve ")||"Sade"} omlet`,"Yemek",krep?[...used,h("Süt")?"Süt":"Yoğurt"]:used,krep?[
-      `Yumurta, un ve ${h("Süt")?"süt":"yoğurt"} akışkan bir hamur olana kadar çırp.`,
-      `İnce doğranmış ${used.slice(1,3).filter(x=>x!=="Un").join(", ")||"peynir"} ve tuzu ekle.`,
-      "Az yağlı tavada krep gibi iki yüzünü de pişir."]:[
-      v.length?"Sebzeleri tavada 3-4 dakika yumuşat.":"Tavayı ısıt, yağı gezdir.",
-      "Yumurtaları tuzla çırpıp tavaya dök.",
-      cheese?"Yarı pişince peyniri serp, katla.":"Kısık ateşte altı tutunca çevir."],"Doğaçlama: aynı malzemeyle her seferinde farklı çıkar.");
-  }
-  if((h("Makarna")||h("Pirinç"))&&(v.length||h("Tavuk Göğsü")||cheese)){
-    const b=h("Makarna")?"Makarna":"Pirinç",ex=[...v.slice(0,2),...(h("Tavuk Göğsü")?["Tavuk Göğsü"]:[]),...(cheese?[cheese]:[])];
-    add(`${ex.slice(0,2).join(" ve ")} ${b==="Makarna"?"soslu makarna":"pilavı"}`,"Yemek",[b,...ex],[
-      b==="Makarna"?"Makarnayı haşla, yarım bardak suyunu ayır.":"Pirinci ılık tuzlu suda 15 dakika beklet.",
-      `Ayrı tavada ${ex.join(", ")} malzemesini yağda ${spice} ile çevir.`,
-      b==="Makarna"?"Makarnayı ve ayırdığın suyu ekle, 2 dakika karıştır.":"Pirinci kat, 1,5 kat sıcak su ekleyip kısık ateşte çekene kadar pişir."],"Doğaçlama.");
-  }
-  if(fr.length&&(h("Süt")||h("Yoğurt"))){
-    const d=h("Süt")?"Süt":"Yoğurt",used=[...fr.slice(0,2),d,...(h("Yulaf")?["Yulaf"]:[])];
-    add(`${fr.slice(0,2).join(" ve ")} smoothie`,"Tatlı",used,[`${fr.join(" ve ")} meyvesini doğra.`,`Bir su bardağı ${d.toLowerCase()} ile pürüzsüz olana kadar çırp.`,"Soğuk iç. Tatlı gelmezse şeker ya da bal ekle."],"Doğaçlama: donmuş meyveyle daha kıvamlı olur.");
-  }else if(fr.length&&(h("Yulaf")||h("Petibör Bisküvi")||h("Bitter Çikolata")||h("Kakao"))){
-    const s=["Yulaf","Petibör Bisküvi","Bitter Çikolata","Kakao"].filter(h).slice(0,2);
-    add(`${fr[0]}lı tatlı kasesi`,"Tatlı",[...fr.slice(0,2),...s],[`${fr.join(" ve ")} meyvesini küp doğra.`,"Kaseye kat kat diz, arasına diğer malzemeleri koy.","15 dakika dolapta beklet."],"Doğaçlama.");
-  }
-  if(h("Yoğurt")&&v.length){
-    add(`${v.slice(0,2).join(" ve ")} yoğurtlaması`,"Yemek",["Yoğurt",...v.slice(0,2)],["Sebzeleri küçük doğrayıp yağda 5 dakika çevir, ılıt.","Yoğurt ve tuzla karıştır, üzerine pul biberli yağ gezdir."],"Doğaçlama: meze olarak da gider.");
-  }
-  return out;
-}
-
-/* ---------- arayüz ---------- */
-const catsEl=document.getElementById("cats"),countEl=document.getElementById("count"),out=document.getElementById("out");
+/* malzeme paneli */
 for(const [name,items] of Object.entries(CATS)){
-  const h=document.createElement("h2");h.textContent=name;catsEl.appendChild(h);
-  const d=document.createElement("div");d.className="chips";
-  items.forEach(i=>{const b=document.createElement("button");b.className="chip";b.textContent=i;b.setAttribute("aria-pressed","false");
-    b.onclick=()=>{sel.has(i)?sel.delete(i):sel.add(i);b.setAttribute("aria-pressed",sel.has(i));upd()};d.appendChild(b)});
-  catsEl.appendChild(d);
-}
-function upd(){countEl.textContent=sel.size?`${sel.size} malzeme seçili`:""}
-function clearAll(){sel.clear();document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));upd();
-  out.innerHTML='<div class="empty"><span class="hand">temiz bir sayfa</span>Yeni malzemeleri seç, yine bakalım.</div>'}
+  const h=document.createElement('h2');h.textContent=name;$('#cats').append(h);
+  const d=document.createElement('div');d.className='chips';
+  items.forEach(i=>{const b=document.createElement('button');b.className='chip';b.textContent=i;b.setAttribute('aria-pressed',sel.has(i));
+    b.onclick=()=>{sel.has(i)?sel.delete(i):sel.add(i);b.setAttribute('aria-pressed',sel.has(i));upd()};d.append(b)});
+  $('#cats').append(d)}
+function upd(){$('#cnt').textContent=sel.size?`${sel.size} malzeme seçili`:'';st.s('sel',[...sel])}
+$('#clr').onclick=()=>{sel.clear();document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));upd();$('#sr').value='';home()};
 
-function card(r){
-  const all=[...r.req,...(r.opt||[]).filter(has)];
-  const ings=all.map(x=>r.miss.includes(x)?`<li class="no">${nice(x)}</li>`:`<li>${m(x.split("|").find(sel.has.bind(sel))||x.split("|")[0])}</li>`).join("");
-  const tag=r.kind===1?'<span class="tag t1">Hepsi var</span>':r.kind===2?'<span class="tag t2">1 eksik</span>':'<span class="tag t3">Doğaçlama</span>';
-  return `<article class="recipe"><div class="rt"><h3>${r.n}</h3><div class="tags">${tag}<span class="tag t3">${r.t}</span></div></div>
-  ${r.kind===2?`<p class="miss">Eksik: ${r.miss.map(nice).join(", ")}. Yoksa bu tarif tam olmaz, ama yerine ne koyabileceğini aşağıdan sorabilirsin.</p>`:''}
-  <h4>Malzemeler</h4><ul class="ings">${ings}</ul>
-  <h4>Yapılışı</h4><ol>${r.s.filter(Boolean).map(s=>`<li>${s}</li>`).join("")}</ol>
-  <p class="note hand">${r.note}</p></article>`;
-}
-function show(){
-  if(sel.size<2){out.innerHTML='<div class="empty"><span class="hand">biraz daha malzeme lazım</span>En az iki malzeme seç.</div>';return}
-  const list=[...matches(),...improvise()];
-  if(!list.length){out.innerHTML='<div class="empty"><span class="hand">bununla pek bir şey çıkmadı</span>Yumurta, süt, yoğurt ya da domates gibi bir şey daha eklersen seçenek çoğalır.</div>';return}
-  out.innerHTML=`<div class="bar"><b>${list.length} fikir</b><button class="btn ghost" onclick="show()">Yeniden dene</button></div>`+list.map(card).join("");
-}
+/* eşleştirme ve doğaçlama */
+function matches(){return R.map(r=>({...r,miss:r.req.filter(x=>!has(x))})).filter(r=>r.miss.length===0||(r.miss.length===1&&r.req.length-1>=2)).map(r=>({...r,k:r.miss.length?2:1})).sort((a,b)=>a.k-b.k||Math.random()-.5)}
+function improvise(){
+  const it=[...sel],g=k=>it.filter(i=>CATS[k].includes(i)),h=i=>sel.has(i),veg=g("Sebzeler"),fr=g("Meyveler"),ch=h("Kaşar Peyniri")?"Kaşar Peyniri":h("Beyaz Peynir")?"Beyaz Peynir":null;
+  const sp=pick(["kekik","pul biber","kimyon","karabiber"]),v=shuf(veg).slice(0,3),o=[],add=(n,t,mn,d,req,s,note)=>o.push({n,t,m:mn,d,k:3,miss:[],req,opt:[],s,note});
+  if(v.length>=2||(h("Tavuk Göğsü")&&v.length)){const b=h("Tavuk Göğsü")?["Tavuk Göğsü",...v]:v;
+    add(`${b.slice(0,2).join(" ve ")} ${pick(["kavurması","sotesi","tava yemeği"])}`,"Yemek",25,1,[...b,...(ch?[ch]:[])],[`Yağı kızdır, ${h("Tavuk Göğsü")?"tavukları 6 dakika mühürle":"sert olan sebzeyi önce tavaya al"}.`,`Kalan malzemeleri ekleyip ${sp} ile 8 dakika çevir.`,ch?"Peyniri en son ver, kapağı kapat, 2 dakika erisin.":"Tuzunu ayarla, sıcak ye."],"Sert sebzeyi erken at, yumuşak olanı sona bırak.")}
+  if(h("Yumurta")&&(v.length||ch||h("Un"))){const u=["Yumurta",...v.slice(0,2),...(ch?[ch]:[])],kr=h("Un")&&(h("Süt")||h("Yoğurt"));
+    add(kr?`${v[0]||"Peynirli"} tava böreği`:`${v.slice(0,2).join(" ve ")||"Sade"} omlet`,"Yemek",15,1,kr?[...u,"Un",h("Süt")?"Süt":"Yoğurt"]:u,kr?["Yumurta, un ve sütü (ya da yoğurdu) akışkan hamur olana kadar çırp.","İnce doğranmış malzemeleri ve tuzu ekle.","Az yağlı tavada her yüzünü 3 dakika pişir."]:[v.length?"Sebzeleri tavada 4 dakika yumuşat.":"Tavayı ısıt, yağı gezdir.","Yumurtaları tuzla çırpıp tavaya dök.",ch?"Yarı pişince peyniri serp, katla.":"Kısık ateşte altı 3 dakika tutunca çevir."],"Her seferinde farklı çıkar, bu yüzden güzel.")}
+  if((h("Makarna")||h("Pirinç"))&&(v.length||h("Tavuk Göğsü")||ch)){const b=h("Makarna")?"Makarna":"Pirinç",e=[...v.slice(0,2),...(h("Tavuk Göğsü")?["Tavuk Göğsü"]:[]),...(ch?[ch]:[])];
+    add(`${e.slice(0,2).join(" ve ")} ${b==="Makarna"?"soslu makarna":"pilavı"}`,"Yemek",30,2,[b,...e],[b==="Makarna"?"Makarnayı 9 dakika haşla, yarım bardak suyunu ayır.":"Pirinci ılık tuzlu suda 15 dakika beklet.",`Ayrı tavada ${e.join(", ")} malzemesini ${sp} ile 8 dakika çevir.`,b==="Makarna"?"Makarnayı ve suyu ekle, 2 dakika karıştır.":"Pirinci kat, 1,5 kat sıcak suyla kısık ateşte 12 dakika pişir."],"Tuzu pişirmeden önce değil, tattıktan sonra ayarla.")}
+  if(fr.length&&(h("Süt")||h("Yoğurt"))){const d=h("Süt")?"Süt":"Yoğurt";add(`${fr.slice(0,2).join(" ve ")} smoothie`,"Tatlı",5,1,[...fr.slice(0,2),d],[`${fr.join(" ve ")} meyvesini doğra.`,`Bir su bardağı ${d.toLowerCase()} ile pürüzsüz olana kadar çırp.`,"Soğuk iç, tatlı gelmezse şeker ya da bal ekle."],"Donmuş meyveyle daha kıvamlı olur.")}
+  if(h("Yoğurt")&&v.length)add(`${v.slice(0,2).join(" ve ")} yoğurtlaması`,"Yemek",15,1,["Yoğurt",...v.slice(0,2)],["Sebzeleri küçük doğrayıp yağda 5 dakika çevir, ılıt.","Yoğurt ve tuzla karıştır, üzerine pul biberli yağ gezdir."],"Meze olarak da gider.");
+  return o}
 
-/* ---------- mutfak asistanı (kural tabanlı) ---------- */
-const QA=[
- [["yumurta"],["yerine","yoksa","olmadan"],"Kek ve pankekte yumurta yerine olgun muz ya da 3 yemek kaşığı yoğurt kullanabilirsin. Omlet ve menemen için ise başka bir şey işe yaramaz."],
- [["süt"],["yerine","yoksa"],"Süt yerine yarı yarıya sulandırdığın yoğurt kullanabilirsin. Tatlılarda da sorun çıkarmaz."],
- [["şeker"],["yerine","yoksa"],"Bal ya da pekmez kullanabilirsin. Miktarını biraz az tut, çünkü daha tatlılar."],
- [["tereyağ","tereyağı"],["yerine","yoksa"],"Sıvı yağ olur. Pilav ve kekte fark az, püre gibi yerlerde lezzet biraz değişir."],
- [["kabartma"],["yerine","yoksa"],"Yarım çay kaşığı karbonatı birkaç damla limon suyuyla karıştır."],
- [["yoğurt"],["yerine","yoksa"],"Süt ve limon suyunu 10 dakika bekletirsen yoğurda yakın bir şey olur."],
- [["patates"],["pişer","pişirme","süre","kaç dakika"],"Haşlanması orta boy parçalarda 15-20 dakika, fırında dilim halinde 200 derecede 25-30 dakika."],
- [["makarna"],["pişer","süre","kaç dakika","haşla"],"Genelde 8-10 dakika. Paketin üstündeki süreden 1 dakika önce tadına bak."],
- [["pirinç"],["pişer","süre","kaç dakika"],"Pilav için kısık ateşte 12-15 dakika, ardından 10 dakika demlendir."],
- [["sakla","saklanır","bekler","dayanır"],[],"Pişmiş yemekleri dolapta 2-3 gün saklayabilirsin. Tavuklu yemekleri daha erken bitirmekte fayda var."],
- [["tuz"],["fazla","çok","kaçırdım"],"Yemeğe bir patates parçası atıp 10 dakika kaynat, ya da biraz yoğurt/limon ekleyip dengele."],
- [["merhaba","selam"],[],"Merhaba! Hangi malzemeyle uğraşıyorsun?"]
-];
-const log=document.getElementById("log"),qi=document.getElementById("q");
-["yumurta yerine ne koyarım","pirinç kaç dakika pişer","yemeği nasıl saklarım"].forEach(t=>{
-  const b=document.createElement("button");b.textContent=t;b.onclick=()=>{qi.value=t;ask()};document.getElementById("sug").appendChild(b)});
-qi.addEventListener("keydown",e=>{if(e.key==="Enter")ask()});
-function say(t,c){const d=document.createElement("div");d.className="m "+c;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight}
-function ask(){
-  const t=qi.value.trim();if(!t)return;say(t,"me");qi.value="";
-  const l=t.toLocaleLowerCase("tr");
-  let ans=null;
-  for(const [a,b,r] of QA){if(a.some(k=>l.includes(k))&&(!b.length||b.some(k=>l.includes(k)))){ans=r;break}}
-  setTimeout(()=>say(ans||"Buna net bir cevabım yok. Malzeme yerine ne konur, pişme süresi ya da saklama gibi konularda yardımcı olabilirim.","bot"),350);
-}
+/* zamanlayıcı */
+function parseT(s){let t=0,l='';const a=s.match(/(\d+(?:[.,]\d+)?)(?:-(\d+))?\s*(dakika|saniye|saat)/);if(!a)return null;const n=+(a[2]||a[1]).replace(',','.'),u=a[3];
+  return{sec:u==='saat'?n*3600:u==='dakika'?n*60:n,label:`${a[2]||a[1]} ${u==='dakika'?'dk':u==='saniye'?'sn':'saat'}`}}
+function beep(){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();[0,.3,.6].forEach(t=>{const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=880;g.gain.value=.15;o.connect(g);g.connect(actx.destination);o.start(actx.currentTime+t);o.stop(actx.currentTime+t+.18)})}catch{}navigator.vibrate&&navigator.vibrate([300,150,300])}
+function addTimer(sec,label){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)()}catch{}timers.push({id:Math.random(),label,end:Date.now()+sec*1000,done:false});tick()}
+const fmt=s=>{s=Math.max(0,Math.ceil(s));return`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`};
+function renderT(){const h=timers.map(t=>{const l=(t.end-Date.now())/1000;return`<div class="tt${t.done?' done':''}" role="timer"><span>${t.done?'Süre doldu':t.label}</span><b>${t.done?'':fmt(l)}</b><button data-x="${t.id}" aria-label="Zamanlayıcıyı kapat">✕</button></div>`}).join('');$('#tb').innerHTML=h;$('#tb2').innerHTML=h}
+function tick(){for(const t of timers)if(!t.done&&t.end-Date.now()<=0){t.done=true;beep()}renderT()}
+setInterval(()=>timers.length&&tick(),500);
+document.addEventListener('click',e=>{const x=e.target.closest('[data-x]');if(x){timers=timers.filter(t=>String(t.id)!==x.dataset.x);renderT()}});
+
+/* kartlar */
+function card(r,i){
+  const ings=[...r.req,...(r.opt||[]).filter(has)].map(x=>r.miss.includes(x)?`<li class="x">${nice(x)}</li>`:`<li>${m(x.split("|").find(y=>sel.has(y))||x.split("|")[0])}</li>`).join('');
+  const tag=r.k===1?'<span class="tag ok">Hepsi var</span>':r.k===2?'<span class="tag no">1 eksik</span>':r.k===3?'<span class="tag ai">Doğaçlama</span>':'';
+  const steps=r.s.map(s=>{const p=parseT(s);return`<li>${s}${p?`<button class="tm" data-t="${p.sec}" data-l="${r.n}: ${p.label}">⏱ ${p.label}</button>`:''}</li>`}).join('');
+  return`<article class="recipe"><div class="rt"><h3>${r.n}</h3><div class="tags">${tag}<span class="tag">${r.t}</span></div></div>
+  <p class="meta">${r.m} dk · ${DZ[r.d-1]}</p>${r.miss.length?`<p class="miss">Eksik: ${r.miss.map(nice).join(', ')}</p>`:''}
+  <h4>Malzemeler</h4><ul class="ings">${ings}</ul><h4>Yapılışı</h4><ol>${steps}</ol><p class="note hand">${r.note}</p>
+  <div class="acts"><button class="btn s" data-cook="${i}">Pişirmeye başla</button>${r.miss.length?`<button class="btn s g" data-add="${i}">Eksikleri listeye ekle</button>`:''}<button class="btn s g" data-list="${i}">Tüm malzemeleri listeye ekle</button><button class="btn s g" onclick="print()">Yazdır</button></div></article>`}
+function render(items,title){cur=items;$('#out').innerHTML=items.length?`<div class="bar"><b>${title}</b><button class="btn g s" id="re">Yeniden dene</button></div>`+items.map(card).join(''):'<div class="empty"><span class="hand">bununla bir şey çıkmadı</span>Yumurta, süt, yoğurt ya da domates gibi bir şey daha eklersen seçenek çoğalır.</div>';
+  const re=$('#re');if(re)re.onclick=show}
+function home(){$('#out').innerHTML='<div class="empty"><span class="hand">önce birkaç malzeme seç</span>Üç dört malzeme genelde yeter. Ya da yukarıdan bir tarif ara.</div>'}
+function show(){$('#sr').value='';if(sel.size<2){$('#out').innerHTML='<div class="empty"><span class="hand">biraz daha malzeme lazım</span>En az iki malzeme seç.</div>';return}const l=[...matches(),...improvise()];render(l,`${l.length} fikir`)}
+$('#go').onclick=show;
+$('#sr').oninput=e=>{const q=fold(e.target.value.trim());if(!q){home();return}
+  const l=R.filter(r=>fold([r.n,r.t,...r.req,...r.opt].join(' ')).includes(q)).map(r=>({...r,miss:sel.size?r.req.filter(x=>!has(x)):[],k:0}));
+  render(l,`"${e.target.value.trim()}" için ${l.length} tarif`)};
+$('#out').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.t)addTimer(+b.dataset.t,b.dataset.l);
+  if(b.dataset.cook)cook(cur[b.dataset.cook]);
+  if(b.dataset.add){addItems(cur[b.dataset.add].miss.map(nice),b)}
+  if(b.dataset.list){const r=cur[b.dataset.list];addItems(r.req.map(x=>nice(x.split("|").find(y=>!sel.has(y))||x.split("|")[0])).filter((v,i,a)=>true),b)}});
+
+/* alışveriş listesi */
+function saveL(){st.s('list',list);$('#lc').textContent=list.filter(x=>!x.d).length}
+function drawL(){$('#ll').innerHTML=list.length?list.map((x,i)=>`<div class="li${x.d?' d':''}"><input type="checkbox" data-c="${i}" ${x.d?'checked':''} aria-label="${x.t}"><span>${x.t}</span><button data-r="${i}" aria-label="Sil">✕</button></div>`).join(''):'<p class="empty">Liste boş. Tarif kartlarından eksikleri ekleyebilirsin.</p>'}
+function addItems(a,btn){let n=0;for(const t of a)if(!list.some(x=>fold(x.t)===fold(t))){list.push({t,d:false});n++}saveL();if(btn){const o=btn.textContent;btn.textContent=n?`${n} malzeme eklendi`:'Zaten listede';setTimeout(()=>btn.textContent=o,1400)}}
+$('#bl').onclick=()=>{drawL();$('#dl').showModal()};
+$('#la').onclick=()=>{const v=$('#li').value.trim();if(v){addItems([v]);$('#li').value='';drawL()}};
+$('#li').onkeydown=e=>{if(e.key==='Enter')$('#la').click()};
+$('#ll').onclick=e=>{const c=e.target.dataset;if(c.c!==undefined)list[c.c].d=e.target.checked;if(c.r!==undefined)list.splice(c.r,1);saveL();drawL()};
+$('#ldn').onclick=()=>{list=list.filter(x=>!x.d);saveL();drawL()};
+$('#lcpy').onclick=async e=>{const t=list.filter(x=>!x.d).map(x=>'- '+x.t).join('\n');try{await navigator.clipboard.writeText(t);e.target.textContent='Kopyalandı'}catch{e.target.textContent='Kopyalanamadı'}setTimeout(()=>e.target.textContent='Kopyala',1400)};
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
+
+/* pişirme modu */
+let wl=null;
+async function cook(r){ck={r,i:0};$('#ck-t').textContent=r.n;$('#ck-i').innerHTML='<summary>Malzemeler</summary>'+r.req.concat(r.opt.filter(has)).map(x=>'<div>• '+nice(x)+'</div>').join('');$('#dk').showModal();drawC();try{wl=await navigator.wakeLock?.request('screen')}catch{}}
+function drawC(){const{r,i}=ck,s=r.s[i],p=parseT(s),n=r.s.length;$('#ck-p').style.width=(i+1)/n*100+'%';
+  $('#ck-b').innerHTML=`<small>Adım ${i+1} / ${n}</small>${s}${p?`<div style="margin-top:14px"><button class="btn m s" data-t="${p.sec}" data-l="${r.n}: ${p.label}">⏱ ${p.label} başlat</button></div>`:''}`;
+  $('#ck-b1').disabled=i===0;$('#ck-b1').style.opacity=i===0?.4:1;$('#ck-n').textContent=i===n-1?'Bitti, afiyet olsun':'İleri'}
+$('#ck-b').onclick=e=>{const b=e.target.closest('[data-t]');if(b)addTimer(+b.dataset.t,b.dataset.l)};
+$('#ck-b1').onclick=()=>{if(ck.i>0){ck.i--;drawC()}};
+$('#ck-n').onclick=()=>{if(ck.i<ck.r.s.length-1){ck.i++;drawC()}else $('#dk').close()};
+$('#dk').addEventListener('keydown',e=>{if(e.key==='ArrowRight')$('#ck-n').click();if(e.key==='ArrowLeft')$('#ck-b1').click()});
+$('#dk').addEventListener('close',()=>{wl&&wl.release().catch(()=>{});wl=null});
+
+/* asistan: bilgi tablosu + bağlam (seçili malzemeler, önceki soru) */
+const IK={yumurta:'Yumurta',sut:'Süt',yogurt:'Yoğurt',seker:'Toz Şeker',tereyag:'Tereyağı',kabartma:'Kabartma Tozu',pirinc:'Pirinç',makarna:'Makarna',patates:'Patates',tavuk:'Tavuk Göğsü',domates:'Domates',biber:'Biber',sogan:'Soğan',sarimsak:'Sarımsak',kabak:'Kabak',havuc:'Havuç',mantar:'Mantar',muz:'Muz',elma:'Elma',cilek:'Çilek',limon:'Limon',kakao:'Kakao',cikolata:'Bitter Çikolata',yulaf:'Yulaf',bisku:'Petibör Bisküvi',salca:'Salça',peynir:'Kaşar Peyniri',kasar:'Kaşar Peyniri',yag:'Sıvı Yağ',un:'Un'};
+const SUB={yumurta:"Kek ve pankekte olgun muz ya da 3 yemek kaşığı yoğurt işe yarar. Omlet ve menemenin yerini başka bir şey tutmaz.",sut:"Yarı yarıya sulandırılmış yoğurt olur. Tatlı ve hamurda fark etmezsin.",yogurt:"Süte 1 yemek kaşığı limon suyu ekleyip 10 dakika beklet, yoğurda yakın olur.",seker:"Bal ya da pekmez kullan, miktarı biraz azalt. Çünkü daha tatlılar.",tereyag:"Sıvı yağ aynı miktarda olur. Pilavda fark az, püre ve kekte lezzet biraz değişir.",kabartma:"Yarım çay kaşığı karbonatı birkaç damla limon suyuyla karıştır.",un:"Kekte yulafı öğüterek yarı yarıya karıştırabilirsin. Tam yerine geçecek bir şey yok.",sogan:"Sarımsak ya da pırasa olur. Soğan tozun varsa 1 çay kaşığı yeter.",sarimsak:"Az miktarda soğan ya da bir tutam sarımsak tozu.",limon:"Sirke ya da portakal suyu, miktarın yarısı kadar.",salca:"Rendelenmiş domates tuzla daha uzun pişirilirse salçaya yakın olur.",peynir:"Kaşar ile beyaz peynir birbirinin yerine geçer. Beyaz peynir tuzlu, tuzu azalt.",kasar:"Beyaz peynir olur, tuzu azalt.",yag:"Tereyağı ya da zeytinyağı aynı miktarda.",domates:"1 yemek kaşığı salçayı yarım bardak suyla aç.",kakao:"Bitter çikolatayı erit, miktarı iki katı olsun, şekeri azalt.",cikolata:"3 yemek kaşığı kakao + 1 kaşık yağ + biraz şeker."};
+const CK={patates:"Haşlama orta parçalarda 15-20 dakika. Fırında dilim hâlinde 200 derecede 25-30 dakika.",makarna:"8-10 dakika. Paketteki süreden 1 dakika önce tadına bak.",pirinc:"Pilav kısık ateşte 12-15 dakika, sonra 10 dakika demlenir. Sütlaçta önce 12 dakika haşlanır.",yumurta:"Rafadan 5-6 dakika, katı 9-10 dakika kaynar suda. Menemende 2-3 dakika yeter.",tavuk:"Kuşbaşı tavada 10-12 dakika. Bütün göğüs fırında 200 derecede 20-25 dakika. İçi beyaz, suyu berrak olmalı.",havuc:"Haşlama 10-15 dakika. Rende hâlinde sotede 5 dakika.",mantar:"Tavada suyunu çekene kadar yaklaşık 8 dakika.",kabak:"Sotede 8-10 dakika. Mücverde her yüzü 3 dakika.",domates:"Sos için 8-10 dakika.",biber:"Sotede 5 dakika.",elma:"Fırında 20-25 dakika.",sogan:"Pembeleşmesi 5-6 dakika, karamelize olması 25 dakika."};
+const SV={tavuk:"Çiğ 1-2 gün, pişmiş 2-3 gün dolapta.",pirinc:"Pişmiş pilavı ılık bırakma, hemen dolaba koy. En fazla 1-2 gün.",makarna:"Pişmiş 3-4 gün dolapta.",patates:"Çiğ patatesi dolapta değil, karanlık ve serin yerde sakla. Pişmiş 2-3 gün.",muz:"Dolapta kararır, oda sıcaklığında bekle. Fazla olgunsa dondur, kek için ideal.",yumurta:"Dolapta 3-4 hafta.",mantar:"Kâğıt poşette dolapta 3-5 gün.",sut:"Açıldıktan sonra 3-4 gün.",yogurt:"Açıldıktan sonra 5-7 gün.",domates:"Oda sıcaklığında, dolap tadını bozar.",limon:"Dolapta 2-3 hafta.",peynir:"Kapalı kapta dolapta 1-2 hafta.",cilek:"Yıkamadan dolapta 2-3 gün."};
+const FX=[[/tuz.*(fazla|cok|kacir)|(fazla|cok|kacir).*tuz/,"Bir patates parçası atıp 10 dakika kaynat, sonra çıkar. Yoğurt ya da limon da dengeler. Sulu yemekse biraz su ekle."],[/yand|dibi tut|tuttu/,"Hemen ocaktan al, üstteki yanmamış kısmı başka kaba aktar, dibini kazıma. Kokusu sindiyse biraz limon ya da şeker yardımcı olur."],[/cok sulu|sulandi|suyu cok|akici/,"Kapağı aç, yüksek ateşte buharlaştır. Ya da 1 kaşık unu soğuk suyla açıp ekle, 2 dakika kaynat."],[/kabarmadi|kabarmiyor/,"Kabartma tozu eskimiş olabilir, ya da hamuru çok karıştırdın. Bir sonrakinde unu en son ve az karıştırarak kat."],[/cok tatli/,"Bir tutam tuz ya da birkaç damla limon dengeler."],[/cok aci|acilasti/,"Bir kaşık şeker ya da yoğurt acıyı yumuşatır."],[/sert oldu|lastik/,"Fazla pişmiş ya da yüksek ateşte pişmiş olabilir. Yumurta ve tavukta kısık ateş kullan."]];
+const CV={un:[120,10],seker:[180,15],pirinc:[180,15],yulaf:[90,8],sut:[200,15],yogurt:[200,20],kakao:[100,8],tereyag:[220,15],yag:[180,14]};
+const UL={'su bardag':'su bardağı','cay bardag':'çay bardağı','yemek kasig':'yemek kaşığı','cay kasig':'çay kaşığı','bardak':'su bardağı'};
+let pend=null,last=null;
+function ings(f){const t=f.split(/[^a-z0-9]+/),o=[];for(const[k,v]of Object.entries(IK))if(t.some(w=>k==='un'?['un','unu','unun'].includes(w):w.startsWith(k))&&!o.some(x=>x.v===v))o.push({k,v});return o}
+function cookable(){return sel.size<2?null:[...matches(),...improvise()]}
+function reply(text){
+  const f=fold(text),I=ings(f),i0=I[0];
+  if(pend&&/^(evet|ekle|olur|tamam)/.test(f.trim())){const p=pend;pend=null;addItems(p);return`Listeye ekledim: ${p.join(', ')}. Üstteki Liste düğmesinden bakabilirsin.`}
+  if(/^(merhaba|selam|hey)/.test(f))return'Merhaba! Soldan malzemelerini seçtiysen "ne yapabilirim" diye sorabilirsin.';
+  if(/tesekkur|sag ol|eyvallah/.test(f))return'Rica ederim, afiyet olsun!';
+  const cm=f.match(/(\d+(?:[.,]\d+)?)?\s*(su bardag|cay bardag|yemek kasig|cay kasig|bardak)/);
+  if(cm&&/gram|\bgr?\b|\bml\b|kac/.test(f)){const n=parseFloat((cm[1]||'1').replace(',','.')),u=cm[2],lab=UL[u],t=i0&&CV[i0.k];
+    if(!t)return`${n} ${lab} yaklaşık ${Math.round(n*(u==='cay bardag'?100:u==='yemek kasig'?15:u==='cay kasig'?5:200))} ml (su ya da süt gibi sıvılarda). Un, şeker gibi malzemeyi de yazarsan gram olarak söylerim.`;
+    const g=u==='cay bardag'?t[0]/2:u==='yemek kasig'?t[1]:u==='cay kasig'?t[1]/3:t[0];return`${n} ${lab} ${i0.v.toLowerCase()} yaklaşık ${Math.round(g*n)} g. Markaya ve sıkıştırmaya göre biraz değişir.`}
+  for(const[re,a]of FX)if(re.test(f))return a;
+  const sub=/yerine|yoksa|olmadan|bulamadim|kalmadi|bitti/.test(f),ck=/kac dakika|pisme|pisirme|ne kadar pisir|sure|haslan|pisirilir/.test(f),sv=/sakla|bozulur|dayanir|ne kadar durur/.test(f),what=/ne yap|ne pisir|ne hazirla|tarif|oner|ne yesem/.test(f);
+  const ans=(k,i)=>k==='sub'?(SUB[i.k]||`${i.v} için net bir yedek bilmiyorum. Kıvamı ve tadı yakın başka bir malzemeyle denemek en güvenlisi.`):k==='ck'?(CK[i.k]||`${i.v} için net bir süre veremiyorum. Tarif kartındaki adımlara bak.`):(SV[i.k]||'Pişmiş yemekleri kapalı kapta dolapta 2-3 gün saklayabilirsin.');
+  if(i0&&(sub||ck||sv)){last=sub?'sub':ck?'ck':'sv';return ans(last,i0)}
+  if(i0&&what){const l=R.filter(r=>[...r.req,...r.opt].some(x=>x.split('|').includes(i0.v)));$('#sr').value=i0.v.toLowerCase();$('#sr').dispatchEvent(new Event('input'));last=null;
+    return l.length?`${i0.v} ile: ${l.slice(0,5).map(r=>r.n).join(', ')}. Hepsini yandaki alanda listeledim.`:`${i0.v} ile hazır tarifim yok, ama yanına bir iki malzeme daha seçersen doğaçlama bir şey çıkarırım.`}
+  if(/eksik|ne almal|alisveris|ne lazim/.test(f)){const l=matches().filter(r=>r.k===2).slice(0,3);if(!l.length)return sel.size<2?'Önce soldan birkaç malzeme seç.':'Şu an tek eksikle yapılabilecek bir tarif görünmüyor.';
+    pend=[...new Set(l.flatMap(r=>r.miss.map(nice)))];return`${l.map(r=>`${r.n} için ${r.miss.map(nice).join(', ')}`).join('\n')}\nBunları alışveriş listene ekleyeyim mi? "evet" de yeterli.`}
+  if(what||/hizli|pratik|acil|ne var/.test(f)){let l=cookable();if(!l)return'Önce soldan en az iki malzeme seç, sonra sana ne yapabileceğine bakayım.';
+    if(/tatli/.test(f))l=l.filter(r=>r.t==='Tatlı');else if(/tuzlu|ana yemek/.test(f))l=l.filter(r=>r.t==='Yemek');if(/hizli|pratik|acil/.test(f))l=l.filter(r=>r.m<=15);
+    if(!l.length)return'Bu isteğe uyan bir şey çıkmadı. Filtreyi gevşetmeyi ya da malzeme eklemeyi dene.';render(l,`${l.length} fikir`);last=null;
+    return`En uygunlar: ${l.slice(0,3).map(r=>`${r.n} (${r.m} dk)`).join(', ')}. Hepsini yandaki alanda gösterdim.`}
+  if(i0&&last)return ans(last,i0);
+  if(i0)return`${i0.v} için şunları sorabilirsin: "yerine ne koyarım", "kaç dakika pişer", "nasıl saklanır", "ile ne yapılır".`;
+  return'Bunu tam anlayamadım. Şunlara yardımcı olabilirim: malzeme yerine ne konur, pişme süresi, saklama, ölçü çevirme ("1 su bardağı un kaç gram"), "elimdekilerle ne yapabilirim" ve yemek kurtarma ("tuzu fazla oldu").'}
+["elimdekilerle ne yapabilirim","süt yerine ne koyarım","1 su bardağı un kaç gram","eksiklerim ne"].forEach(t=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{$('#q').value=t;ask()};$('#sug').append(b)});
+function say(t,c){const d=document.createElement('div');d.className='m '+c;d.textContent=t;$('#log').append(d);$('#log').scrollTop=1e5}
+function ask(){const t=$('#q').value.trim();if(!t)return;say(t,'me');$('#q').value='';setTimeout(()=>say(reply(t),'bot'),300)}
+$('#ask').onclick=ask;$('#q').onkeydown=e=>{if(e.key==='Enter')ask()};
+
+applyLook();upd();saveL();home();
 </script>
 </body>
 </html>
